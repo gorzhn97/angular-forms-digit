@@ -1,0 +1,191 @@
+<h1>Template-Driven Forms — Live Demo</h1>
+
+<!-- ═══════════════════════════════════════════════════════
+     STEP 1 — Bare ngModel (no binding)
+     Explain: Just adding ngModel + a name attribute registers
+     the control with the form. No component property needed yet.
+     Type in the field, then show form.value in the console —
+     Angular tracks it automatically.
+     ═══════════════════════════════════════════════════════ -->
+
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+  <div class="form-field">
+    <label for="name">Name</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      ngModel
+    />
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 2 — Two-way binding + validation
+       Explain: [(ngModel)]="name" syncs the input with a
+       component property (two-way binding: view ↔ class).
+       #nameCtrl="ngModel" exposes the control’s state.
+       We can read .touched, .invalid, .errors in the template.
+       "required" is a built-in template-driven validator.
+       ═══════════════════════════════════════════════════════ -->
+
+  <!-- STEP 2: replace the name input above with this one + uncomment name = '' in TS: -->
+  <!--
+  <div class="form-field">
+    <label for="name">Name</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      [(ngModel)]="name"
+      required
+      #nameCtrl="ngModel"
+    />
+    @if (nameCtrl.touched && nameCtrl.invalid) {
+      <span class="error" role="alert">Name is required.</span>
+    }
+  </div>
+  -->
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 3 — More fields with multiple validators
+       Explain: We can stack validators (required + email).
+       Each error key can be checked individually.
+       Uncomment each block as you explain it.
+       ═══════════════════════════════════════════════════════ -->
+
+  <!-- STEP 3a: Email field with required + email validators -->
+  <!--
+  <div class="form-field">
+    <label for="email">Email</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      [(ngModel)]="email"
+      required
+      email
+      #emailCtrl="ngModel"
+    />
+    @if (emailCtrl.touched && emailCtrl.invalid) {
+      @if (emailCtrl.errors?.['required']) {
+        <span class="error" role="alert">Email is required.</span>
+      } @else if (emailCtrl.errors?.['email']) {
+        <span class="error" role="alert">Enter a valid email.</span>
+      }
+    }
+  </div>
+  -->
+
+  <!-- STEP 3b: Password field with required + minlength -->
+  <!--
+  <div class="form-field">
+    <label for="password">Password</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      [(ngModel)]="password"
+      required
+      minlength="6"
+      #passwordCtrl="ngModel"
+    />
+    @if (passwordCtrl.touched && passwordCtrl.invalid) {
+      @if (passwordCtrl.errors?.['required']) {
+        <span class="error" role="alert">Password is required.</span>
+      } @else if (passwordCtrl.errors?.['minlength']) {
+        <span class="error" role="alert">Must be at least 6 characters.</span>
+      }
+    }
+  </div>
+  -->
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 4 — Cross-field validation in the template
+       Explain: No custom validator class needed!
+       We compare two component properties directly in the template.
+       This is a key advantage for simple cases.
+       ═══════════════════════════════════════════════════════ -->
+
+  <!-- STEP 4: Confirm password + template-level match check -->
+  <!--
+  <div class="form-field">
+    <label for="confirmPassword">Confirm Password</label>
+    <input
+      id="confirmPassword"
+      name="confirmPassword"
+      type="password"
+      [(ngModel)]="confirmPassword"
+      required
+      #confirmPasswordCtrl="ngModel"
+    />
+    @if (confirmPasswordCtrl.touched && confirmPasswordCtrl.invalid) {
+      <span class="error" role="alert">Please confirm your password.</span>
+    }
+    @if (confirmPasswordCtrl.touched && confirmPasswordCtrl.valid && password !== confirmPassword) {
+      <span class="error" role="alert">Passwords do not match.</span>
+    }
+  </div>
+  -->
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 5 — What happens without a "name" attribute?
+       Explain: ngModel MUST have a name attribute to register
+       with the parent form. Without it (using standalone mode),
+       the control works for binding but is invisible to the form.
+       Show form.value — this field won't appear.
+       ═══════════════════════════════════════════════════════ -->
+
+  <!-- STEP 5: Input without a name attribute -->
+  <!--
+  <div class="form-field">
+    <label for="unmapped">Unmapped Field (no name attr)</label>
+    <input
+      id="unmapped"
+      type="text"
+      [(ngModel)]="unmapped"
+      [ngModelOptions]="{standalone: true}"
+    />
+    <span class="hint">↑ This input is NOT in form.value because it has no name attribute.</span>
+  </div>
+  -->
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 6 — Disable submit when form is invalid
+       Explain: #form="ngForm" gives us the entire form state.
+       form.invalid includes all registered controls' validity.
+       We also add the cross-field password check here.
+       ═══════════════════════════════════════════════════════ -->
+
+  <button type="submit">Submit</button>
+
+  <!-- STEP 6: replace the button above with this one: -->
+  <!--
+  <button
+    type="submit"
+    [disabled]="form.invalid || password !== confirmPassword"
+  >
+    Submit
+  </button>
+  -->
+
+</form>
+
+<!-- ═══════════════════════════════════════════════════════
+     STEP 7 — Live form state panel
+     Explain: The form object tracks everything automatically —
+     value, validity, dirty/pristine, touched/untouched.
+     This is the "wow moment" — type in any field and watch
+     the state update in real time below.
+     ═══════════════════════════════════════════════════════ -->
+
+<!-- STEP 7: Uncomment to show live form state -->
+<!--
+<div class="form-state">
+  <h2>Live Form State</h2>
+  <p><strong>form.valid:</strong> {{ form.valid }}</p>
+  <p><strong>form.dirty:</strong> {{ form.dirty }}</p>
+  <p><strong>form.touched:</strong> {{ form.touched }}</p>
+  <pre><strong>form.value:</strong>{{ form.value | json }}</pre>
+</div>
+-->

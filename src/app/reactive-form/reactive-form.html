@@ -1,0 +1,159 @@
+<h1>Reactive Forms — Live Demo</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <!-- ═══════════════════════════════════════════════════
+       STEP 1 + 2 — FormGroup + Template Binding
+       Each formControlName binds an <input> to a FormControl.
+       ═══════════════════════════════════════════════════ -->
+
+  <div class="form-field">
+    <label for="name">Name</label>
+    <input id="name" formControlName="name" />
+    @if (form.get('name')!.touched && form.get('name')!.hasError('required')) {
+      <span class="error" role="alert">Name is required.</span>
+    }
+  </div>
+
+  <div class="form-field">
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" />
+    @if (form.get('email')!.touched && form.get('email')!.invalid) {
+      @if (form.get('email')!.hasError('required')) {
+        <span class="error" role="alert">Email is required.</span>
+      } @else if (form.get('email')!.hasError('email')) {
+        <span class="error" role="alert">Enter a valid email.</span>
+      }
+    }
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       STEP 3 — Validation + Cross-field Validator
+       Built-in: required, minLength.
+       Custom: passwordMatchValidator checks both fields.
+       ═══════════════════════════════════════════════════ -->
+
+  <div class="form-field">
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" />
+    @if (form.get('password')!.touched && form.get('password')!.invalid) {
+      @if (form.get('password')!.hasError('required')) {
+        <span class="error" role="alert">Password is required.</span>
+      } @else if (form.get('password')!.hasError('minlength')) {
+        <span class="error" role="alert">Must be at least 6 characters.</span>
+      }
+    }
+    <!-- STEP 8 — Live password strength (derived from valueChanges signal) -->
+    @if (passwordStrength().level > 0) {
+      <span class="strength" [class]="'level-' + passwordStrength().level">
+        Strength: {{ passwordStrength().label }}
+      </span>
+    }
+  </div>
+
+  <div class="form-field">
+    <label for="confirmPassword">Confirm Password</label>
+    <input id="confirmPassword" type="password" formControlName="confirmPassword" />
+    @if (form.get('confirmPassword')!.touched && form.get('confirmPassword')!.hasError('required')) {
+      <span class="error" role="alert">Please confirm your password.</span>
+    }
+    @if (form.get('confirmPassword')!.touched && form.hasError('passwordMismatch')) {
+      <span class="error" role="alert">Passwords do not match.</span>
+    }
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       STEP 4 — Nested FormGroup
+       formGroupName="profile" scopes controls to a sub-object.
+       ═══════════════════════════════════════════════════ -->
+
+  <fieldset formGroupName="profile" class="nested-group">
+    <legend>Profile (nested FormGroup)</legend>
+
+    <div class="form-field">
+      <label for="firstName">First Name</label>
+      <input id="firstName" formControlName="firstName" />
+      @if (form.get('profile.firstName')!.touched && form.get('profile.firstName')!.hasError('required')) {
+        <span class="error" role="alert">First name is required.</span>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="lastName">Last Name</label>
+      <input id="lastName" formControlName="lastName" />
+      @if (form.get('profile.lastName')!.touched && form.get('profile.lastName')!.hasError('required')) {
+        <span class="error" role="alert">Last name is required.</span>
+      }
+    </div>
+  </fieldset>
+
+  <!-- ═══════════════════════════════════════════════════
+       STEP 5 — FormArray (dynamic list)
+       Controls can be added/removed at runtime.
+       ═══════════════════════════════════════════════════ -->
+
+  <fieldset class="nested-group">
+    <legend>Skills (FormArray)</legend>
+
+    @for (skill of skills.controls; track $index) {
+      <div class="skill-row">
+        <input
+          [formControl]="skill"
+          [placeholder]="'Skill ' + ($index + 1)"
+          [attr.aria-label]="'Skill ' + ($index + 1)"
+        />
+        <button
+          type="button"
+          class="btn-remove"
+          [attr.aria-label]="'Remove skill ' + ($index + 1)"
+          (click)="removeSkill($index)"
+        >✕</button>
+      </div>
+      @if (skill.touched && skill.hasError('required')) {
+        <span class="error" role="alert">Skill cannot be empty.</span>
+      }
+    }
+
+    <button type="button" class="btn-add" (click)="addSkill()">+ Add Skill</button>
+  </fieldset>
+
+  <!-- ═══════════════════════════════════════════════════
+       SUBMIT
+       ═══════════════════════════════════════════════════ -->
+
+  <button type="submit" [disabled]="form.invalid">Submit</button>
+</form>
+
+<!-- ═══════════════════════════════════════════════════
+     STEP 7 — setValue vs patchValue
+     Buttons let the audience see the difference live.
+     ═══════════════════════════════════════════════════ -->
+
+<div class="action-bar">
+  <h2>setValue vs patchValue</h2>
+  <div class="action-buttons">
+    <button type="button" class="btn-action" (click)="fillWithSetValue()">
+      setValue (all fields)
+    </button>
+    <button type="button" class="btn-action" (click)="fillWithPatchValue()">
+      patchValue (name + email only)
+    </button>
+    <button type="button" class="btn-action btn-reset" (click)="resetForm()">
+      Reset
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     STEP 6 — Live form state (the "wow moment")
+     The entire form value + validity updates in real time.
+     Open the console to see debounced valueChanges logs.
+     ═══════════════════════════════════════════════════ -->
+
+<div class="form-state">
+  <h2>Live Form State</h2>
+  <p><strong>form.valid:</strong> {{ form.valid }}</p>
+  <p><strong>form.dirty:</strong> {{ form.dirty }}</p>
+  <p><strong>form.touched:</strong> {{ form.touched }}</p>
+  <pre><strong>form.value:</strong>{{ form.value | json }}</pre>
+</div>
