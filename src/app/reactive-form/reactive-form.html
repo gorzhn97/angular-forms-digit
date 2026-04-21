@@ -10,10 +10,23 @@
   <div class="form-field">
     <label for="name">Name</label>
     <input id="name" formControlName="name" />
-    @if (form.get('name')!.touched && form.get('name')!.hasError('required')) {
-      <span class="error" role="alert">Name is required.</span>
+    @if (form.get('name')!.touched && form.get('name')!.invalid) {
+      @if (form.get('name')!.hasError('required')) {
+        <span class="error" role="alert">Name is required.</span>
+      }
+      @if (form.get('name')!.hasError('forbiddenName')) {
+        <span class="error" role="alert">
+          "{{ form.get('name')!.getError('forbiddenName').value }}" is forbidden.
+        </span>
+      }
     }
   </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       STEP 9 — Custom validator on a single control
+       forbiddenNameValidator(/admin/i) blocks one name pattern.
+       Try typing "admin" to trigger a custom error object.
+       ═══════════════════════════════════════════════════ -->
 
   <div class="form-field">
     <label for="email">Email</label>
@@ -30,7 +43,8 @@
   <!-- ═══════════════════════════════════════════════════
        STEP 3 — Validation + Cross-field Validator
        Built-in: required, minLength.
-       Custom: passwordMatchValidator checks both fields.
+      Custom: passwordMatchValidator and passwordContainsNameValidator
+      both compare values across sibling controls.
        ═══════════════════════════════════════════════════ -->
 
   <div class="form-field">
@@ -43,9 +57,12 @@
         <span class="error" role="alert">Must be at least 6 characters.</span>
       }
     }
+    @if (form.get('password')!.touched && form.hasError('passwordContainsName')) {
+      <span class="error" role="alert">Password must not contain the entered name.</span>
+    }
     <!-- STEP 8 — Live password strength (derived from valueChanges signal) -->
     @if (passwordStrength().level > 0) {
-      <span class="strength" [class]="'level-' + passwordStrength().level">
+      <span class="strength" >
         Strength: {{ passwordStrength().label }}
       </span>
     }

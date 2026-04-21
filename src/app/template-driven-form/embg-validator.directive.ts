@@ -1,11 +1,7 @@
 import { Directive } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
-// ═══════════════════════════════════════════════════════
-// EMBG Validator Directive
-//
-// In template-driven forms, custom validators are Directives.
-// The key parts:
+
 //   1. Implement the Validator interface (validate method)
 //   2. Provide yourself as NG_VALIDATORS (multi: true)
 //   3. Apply the directive as an attribute on the input
@@ -15,7 +11,6 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 //   - Digits only (no letters or symbols)
 //   - First 2 digits = day   → must be 01–31
 //   - Next  2 digits = month → must be 01–12
-// ═══════════════════════════════════════════════════════
 @Directive({
   selector: '[embgValidator]',
   providers: [
