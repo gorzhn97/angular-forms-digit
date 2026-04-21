@@ -4,22 +4,22 @@
 
     <!-- STEP 1 + 2 — FormGroup + Template Binding - formcontrol binding -->
 
-    <!-- <div class="form-field">
+    <div class="form-field">
     <label for="name">Name</label>
     <input id="name" formControlName="name" />
     @if (form.get('name')!.touched && form.get('name')!.invalid) {
       @if (form.get('name')!.hasError('required')) {
         <span class="error" role="alert">Name is required.</span>
       }
-      @if (form.get('name')!.hasError('forbiddenName')) {
+      <!-- @if (form.get('name')!.hasError('forbiddenName')) {
         <span class="error" role="alert">
           "{{ form.get('name')!.getError('forbiddenName').value }}" is forbidden.
         </span>
-      }
+      } -->
     }
-  </div> -->
+  </div>
 
- 
+
 
   <div class="form-field">
     <label for="email">Email</label>
@@ -54,11 +54,11 @@
       <span class="error" role="alert">Password must not contain the entered name.</span>
     }
     <!-- STEP 8 — Live password strength (derived from valueChanges signal) -->
-    @if (passwordStrength().level > 0) {
+    <!-- @if (passwordStrength().level > 0) {
       <span class="strength" >
         Strength: {{ passwordStrength().label }}
       </span>
-    }
+    } -->
   </div>
 
   <div class="form-field">
@@ -77,7 +77,7 @@
        formGroupName="profile" scopes controls to a sub-object.
        ═══════════════════════════════════════════════════ -->
 
-  <fieldset formGroupName="profile" class="nested-group">
+  <!-- <fieldset formGroupName="profile" class="nested-group">
     <legend>Profile (nested FormGroup)</legend>
 
     <div class="form-field">
@@ -95,14 +95,14 @@
         <span class="error" role="alert">Last name is required.</span>
       }
     </div>
-  </fieldset>
+  </fieldset> -->
 
   <!-- ═══════════════════════════════════════════════════
        STEP 5 — FormArray (dynamic list)
        Controls can be added/removed at runtime.
        ═══════════════════════════════════════════════════ -->
 
-  <fieldset class="nested-group">
+  <!-- <fieldset class="nested-group">
     <legend>Skills (FormArray)</legend>
 
     @for (skill of skills.controls; track $index) {
@@ -125,7 +125,7 @@
     }
 
     <button type="button" class="btn-add" (click)="addSkill()">+ Add Skill</button>
-  </fieldset>
+  </fieldset> -->
 
   <!-- ═══════════════════════════════════════════════════
        SUBMIT
@@ -155,9 +155,9 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════
-     STEP 6 — Live form state (the "wow moment")
+     STEP 6 — Live form state 
      The entire form value + validity updates in real time.
-     Open the console to see debounced valueChanges logs.
+   
      ═══════════════════════════════════════════════════ -->
 
 <div class="form-state">
