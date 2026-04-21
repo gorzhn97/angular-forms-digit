@@ -95,10 +95,8 @@ export class ReactiveFormComponent {
     this.lastChange.set(null);
   }
 
-  // ═══════════════════════════════════════════════════════
   // STEP 8 — Derived state with computed()
   //   Password strength calculated reactively from the signal.
-  // ═══════════════════════════════════════════════════════
   passwordStrength = computed(() => {
     const pw = (this.lastChange()?.['password'] as string) ?? '';
     if (pw.length === 0) return { label: '', level: 0 };
@@ -107,9 +105,7 @@ export class ReactiveFormComponent {
     return { label: 'Strong', level: 3 };
   });
 
-  // ═══════════════════════════════════════════════════════
   // STEP 5 helpers — FormArray add / remove
-  // ═══════════════════════════════════════════════════════
   get skills(): FormArray<FormControl<string | null>> {
     return this.form.controls.skills;
   }
@@ -131,11 +127,9 @@ export class ReactiveFormComponent {
   }
 }
 
-// ═══════════════════════════════════════════════════════
 // STEP 9 — Custom control validator factory
 //   Returns a ValidatorFn configured with a regular expression.
 //   We attach it directly to the name control above.
-// ═══════════════════════════════════════════════════════
 function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value as string | null;
@@ -144,23 +138,19 @@ function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
   };
 }
 
-// ═══════════════════════════════════════════════════════
 // STEP 3 — Custom cross-field validator (pure function)
 //   Compares password and confirmPassword across controls.
 //   Returns null if valid, or an error object if not.
-// ═══════════════════════════════════════════════════════
 function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
   const password = group.get('password')?.value;
   const confirm = group.get('confirmPassword')?.value;
   return password === confirm ? null : { passwordMismatch: true };
 }
 
-// ═══════════════════════════════════════════════════════
 // STEP 10 — Another cross-field validator
 //   The password must not contain the person's name.
 //   This shows that group validators can compare sibling controls
 //   for rules beyond simple equality.
-// ═══════════════════════════════════════════════════════
 function passwordContainsNameValidator(group: AbstractControl): ValidationErrors | null {
   const name = (group.get('name')?.value as string | null)?.trim().toLowerCase();
   const password = (group.get('password')?.value as string | null)?.toLowerCase();
