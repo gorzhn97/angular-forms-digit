@@ -22,9 +22,7 @@ import { debounceTime } from 'rxjs';
 })
 export class ReactiveFormPlainComponent {
 
-  // ═══════════════════════════════════════════════════════
   // Form model WITHOUT FormBuilder
-  // ═══════════════════════════════════════════════════════
   form = new FormGroup(
     {
       name: new FormControl<string | null>('', [
@@ -60,9 +58,7 @@ export class ReactiveFormPlainComponent {
     }
   );
 
-  // ═══════════════════════════════════════════════════════
   // valueChanges demo (same as before)
-  // ═══════════════════════════════════════════════════════
   lastChange = signal<Record<string, unknown> | null>(null);
 
   constructor() {
@@ -74,9 +70,7 @@ export class ReactiveFormPlainComponent {
       });
   }
 
-  // ═══════════════════════════════════════════════════════
   // setValue vs patchValue
-  // ═══════════════════════════════════════════════════════
   fillWithSetValue() {
     this.form.setValue({
       name: 'Jane Doe',
@@ -100,9 +94,7 @@ export class ReactiveFormPlainComponent {
     this.lastChange.set(null);
   }
 
-  // ═══════════════════════════════════════════════════════
   // Derived state
-  // ═══════════════════════════════════════════════════════
   passwordStrength = computed(() => {
     const pw = (this.lastChange()?.['password'] as string) ?? '';
     if (pw.length === 0) return { label: '', level: 0 };
@@ -111,9 +103,7 @@ export class ReactiveFormPlainComponent {
     return { label: 'Strong', level: 3 };
   });
 
-  // ═══════════════════════════════════════════════════════
   // FormArray helpers
-  // ═══════════════════════════════════════════════════════
   get skills(): FormArray<FormControl<string | null>> {
     return this.form.controls.skills as FormArray<FormControl<string | null>>;
   }
@@ -126,18 +116,14 @@ export class ReactiveFormPlainComponent {
     this.skills.removeAt(index);
   }
 
-  // ═══════════════════════════════════════════════════════
   // Submit
-  // ═══════════════════════════════════════════════════════
   onSubmit() {
     console.log('Reactive form submitted!');
     console.log('Form value:', this.form.value);
   }
 }
 
-// ═══════════════════════════════════════════════════════
 // Validators (unchanged)
-// ═══════════════════════════════════════════════════════
 function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value as string | null;

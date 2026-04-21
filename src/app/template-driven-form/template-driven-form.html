@@ -16,7 +16,7 @@
   </div> -->
 
 
-  <!-- STEP 2: replace the name input above with this one + uncomment name = '' in TS: -->
+  <!-- STEP 2: replace the name input above with this one-->
   <!--
   <div class="form-field">
     <label for="name">Name</label>
@@ -34,7 +34,7 @@
   </div>
   -->
 
-  <!-- STEP 3a: Email field with required + email validators -->
+  <!-- STEP 3a: email validators -->
  
   <!-- <div class="form-field">
     <label for="email">Email</label>
@@ -57,7 +57,7 @@
   </div> -->
 
 
-  <!-- STEP 3b: Password field with required + minlength -->
+  <!-- STEP 3b: required + minlength -->
   <!--
   <div class="form-field">
     <label for="password">Password</label>
@@ -80,13 +80,6 @@
   </div>
   -->
 
-  <!-- ═══════════════════════════════════════════════════════
-       STEP 4 — Cross-field validation in the template
-       Explain: No custom validator class needed!
-       We compare two component properties directly in the template.
-       This is a key advantage for simple cases.
-       ═══════════════════════════════════════════════════════ -->
-
   <!-- STEP 4: Confirm password + template-level match check -->
   <!--
   <div class="form-field">
@@ -108,13 +101,7 @@
   </div>
   -->
 
-  <!-- ═══════════════════════════════════════════════════════
-       STEP 5 — What happens without a "name" attribute?
-       Explain: ngModel MUST have a name attribute to register
-       with the parent form. Without it (using standalone mode),
-       the control works for binding but is invisible to the form.
-       Show form.value — this field won't appear.
-       ═══════════════════════════════════════════════════════ -->
+       
 
   <!-- STEP 5: Input without a name attribute -->
   <!--
@@ -130,12 +117,7 @@
   </div>
   -->
 
-  <!-- ═══════════════════════════════════════════════════════
-       STEP 6 — Disable submit when form is invalid
-       Explain: #form="ngForm" gives us the entire form state.
-       form.invalid includes all registered controls' validity.
-       We also add the cross-field password check here.
-       ═══════════════════════════════════════════════════════ -->
+  
 
   <button type="submit">Submit</button>
 
@@ -151,13 +133,6 @@
 
 </form>
 
-<!-- ═══════════════════════════════════════════════════════
-     STEP 7 — Live form state panel
-     Explain: The form object tracks everything automatically —
-     value, validity, dirty/pristine, touched/untouched.
-     This is the "wow moment" — type in any field and watch
-     the state update in real time below.
-     ═══════════════════════════════════════════════════════ -->
 
 <!-- STEP 7: Uncomment to show live form state -->
 

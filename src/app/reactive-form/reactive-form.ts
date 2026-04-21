@@ -23,10 +23,8 @@ import { debounceTime } from 'rxjs';
 export class ReactiveFormComponent {
   private fb = inject(FormBuilder);
 
-  // ═══════════════════════════════════════════════════════
   // STEP 1 — FormGroup: group multiple FormControls together
   //   Each key becomes a FormControl automatically via FormBuilder.
-  // ═══════════════════════════════════════════════════════
   form = this.fb.group(
     {
       name: ['', [Validators.required, forbiddenNameValidator(/admin/i)]],
@@ -49,11 +47,9 @@ export class ReactiveFormComponent {
     }
   );
 
-  // ═══════════════════════════════════════════════════════
   // STEP 6 — valueChanges: the form is an Observable stream
   //   Every keystroke emits the full form value.
   //   debounceTime waits 300ms of silence before emitting.
-  // ═══════════════════════════════════════════════════════
   lastChange = signal<Record<string, unknown> | null>(null);
 
   constructor() {
@@ -65,11 +61,9 @@ export class ReactiveFormComponent {
       });
   }
 
-  // ═══════════════════════════════════════════════════════
   // STEP 7 — setValue vs patchValue
   //   setValue: must supply ALL controls (errors if you miss one)
   //   patchValue: supply only the controls you want to update
-  // ═══════════════════════════════════════════════════════
   fillWithSetValue() {
     // This would throw if any key were missing!
     this.form.setValue({
@@ -118,9 +112,7 @@ export class ReactiveFormComponent {
     this.skills.removeAt(index);
   }
 
-  // ═══════════════════════════════════════════════════════
   // Submit handler
-  // ═══════════════════════════════════════════════════════
   onSubmit() {
     console.log('Reactive form submitted!');
     console.log('Form value:', this.form.value);
