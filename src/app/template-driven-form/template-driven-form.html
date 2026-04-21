@@ -1,16 +1,11 @@
-<h1>Template-Driven Forms — Live Demo</h1>
+<h1>Template-Driven Forms - Live Demo</h1>
 
-<!-- ═══════════════════════════════════════════════════════
-     STEP 1 — Bare ngModel (no binding)
-     Explain: Just adding ngModel + a name attribute registers
-     the control with the form. No component property needed yet.
-     Type in the field, then show form.value in the console —
-     Angular tracks it automatically.
-     ═══════════════════════════════════════════════════════ -->
-
+    
+     
+<!-- step 1 -->
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
 
-  <div class="form-field">
+  <!-- <div class="form-field">
     <label for="name">Name</label>
     <input
       id="name"
@@ -18,16 +13,8 @@
       type="text"
       ngModel
     />
-  </div>
+  </div> -->
 
-  <!-- ═══════════════════════════════════════════════════════
-       STEP 2 — Two-way binding + validation
-       Explain: [(ngModel)]="name" syncs the input with a
-       component property (two-way binding: view ↔ class).
-       #nameCtrl="ngModel" exposes the control’s state.
-       We can read .touched, .invalid, .errors in the template.
-       "required" is a built-in template-driven validator.
-       ═══════════════════════════════════════════════════════ -->
 
   <!-- STEP 2: replace the name input above with this one + uncomment name = '' in TS: -->
   <!--
@@ -47,16 +34,9 @@
   </div>
   -->
 
-  <!-- ═══════════════════════════════════════════════════════
-       STEP 3 — More fields with multiple validators
-       Explain: We can stack validators (required + email).
-       Each error key can be checked individually.
-       Uncomment each block as you explain it.
-       ═══════════════════════════════════════════════════════ -->
-
   <!-- STEP 3a: Email field with required + email validators -->
-  <!--
-  <div class="form-field">
+ 
+  <!-- <div class="form-field">
     <label for="email">Email</label>
     <input
       id="email"
@@ -74,8 +54,8 @@
         <span class="error" role="alert">Enter a valid email.</span>
       }
     }
-  </div>
-  -->
+  </div> -->
+
 
   <!-- STEP 3b: Password field with required + minlength -->
   <!--
@@ -180,12 +160,38 @@
      ═══════════════════════════════════════════════════════ -->
 
 <!-- STEP 7: Uncomment to show live form state -->
-<!--
-<div class="form-state">
+
+<!-- <div class="form-state">
   <h2>Live Form State</h2>
   <p><strong>form.valid:</strong> {{ form.valid }}</p>
   <p><strong>form.dirty:</strong> {{ form.dirty }}</p>
   <p><strong>form.touched:</strong> {{ form.touched }}</p>
   <pre><strong>form.value:</strong>{{ form.value | json }}</pre>
+</div> -->
+
+
+
+<!-- STEP 8: Uncomment below + uncomment embg = '' in TS -->
+<!-- 
+<div class="form-field">
+  <label for="embg">EMBG</label>
+  <input
+    id="embg"
+    name="embg"
+    type="text"
+    maxlength="13"
+    [(ngModel)]="embg"
+    required
+    embgValidator
+    #embgCtrl="ngModel"
+  />
+  @if (embgCtrl.touched && embgCtrl.invalid) {
+    @if (embgCtrl.errors?.['required']) {
+      <span class="error" role="alert">EMBG is required.</span>
+    } @else if (embgCtrl.errors?.['embg']) {
+      <span class="error" role="alert">{{ embgCtrl.errors?.['embg'].message }}</span>
+    }
+  }
 </div>
--->
+
+ -->
