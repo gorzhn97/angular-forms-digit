@@ -3,14 +3,11 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 
 
 //   1. Implement the Validator interface (validate method)
-//   2. Provide yourself as NG_VALIDATORS (multi: true)
+//   2. Provide as NG_VALIDATORS 
 //   3. Apply the directive as an attribute on the input
 //
-// EMBG rules:
-//   - Exactly 13 digits
-//   - Digits only (no letters or symbols)
-//   - First 2 digits = day   → must be 01–31
-//   - Next  2 digits = month → must be 01–12
+
+
 @Directive({
   selector: '[embgValidator]',
   providers: [
@@ -25,7 +22,7 @@ export class EmbgValidatorDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
     const value: string = control.value ?? '';
 
-    if (!value) return null; // let required handle the empty case
+    if (!value) return null; 
 
     if (!/^\d{13}$/.test(value)) {
       return { embg: { message: 'EMBG must be exactly 13 digits.' } };
