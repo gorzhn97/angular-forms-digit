@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { JsonPipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
+import { PasswordsMatchValidatorDirective } from "./passwords-match-validator.directive";
+import { EmbgValidatorDirective } from './embg-validator.directive';
 
 @Component({
   selector: 'app-template-driven-form',
-  imports: [FormsModule, JsonPipe],
+  imports: [FormsModule, JsonPipe, PasswordsMatchValidatorDirective,EmbgValidatorDirective
+  ],
   templateUrl: './template-driven-form.html',
   styleUrl: './template-driven-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,9 +30,10 @@ export class TemplateDrivenFormComponent {
   // unmapped = '';
 
   // STEP 8: EMBG custom validator demo
-//   embg = '';
+  // embg = '';
 
   onSubmit(form: NgForm) {
+    // this.name = '2'
     console.log('Template-driven form submitted!');
     console.log('Form value:', form.value);
   }

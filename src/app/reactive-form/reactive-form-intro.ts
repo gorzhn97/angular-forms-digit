@@ -37,4 +37,10 @@ export class ReactiveFormIntroComponent {
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
+
+  // constructor() {
+  //   this.nameControl.valueChanges.subscribe((value) => {
+  //     console.log('Name control value changed:', value);
+  //   });
+  // }
 }

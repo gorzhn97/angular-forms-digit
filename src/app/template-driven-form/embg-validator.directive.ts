@@ -36,7 +36,7 @@ export class EmbgValidatorDirective implements Validator {
     }
 
     if (month < 1 || month > 12) {
-      return { embg: { message: 'Next 2 digits (month) must be between 01 and 12.' } };
+      return { embg: { message: 'Month needs to be 2 digits and must be between 01 and 12.' } };
     }
 
     return null;
