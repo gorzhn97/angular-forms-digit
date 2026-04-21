@@ -15,13 +15,6 @@ export const routes: Routes = [
         (m) => m.ReactiveFormComponent
       ),
   },
-   {
-    path: 'plain-reactive',
-    loadComponent: () =>
-      import('./reactive-form/reactive-form-plain').then(
-        (m) => m.ReactiveFormPlainComponent
-      ),
-  },
   {
     path: 'reactive-intro',
     loadComponent: () =>

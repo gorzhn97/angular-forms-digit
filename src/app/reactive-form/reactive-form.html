@@ -2,12 +2,9 @@
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <!-- ═══════════════════════════════════════════════════
-       STEP 1 + 2 — FormGroup + Template Binding
-       Each formControlName binds an <input> to a FormControl.
-       ═══════════════════════════════════════════════════ -->
+    <!-- STEP 1 + 2 — FormGroup + Template Binding - formcontrol binding -->
 
-  <div class="form-field">
+    <!-- <div class="form-field">
     <label for="name">Name</label>
     <input id="name" formControlName="name" />
     @if (form.get('name')!.touched && form.get('name')!.invalid) {
@@ -20,13 +17,9 @@
         </span>
       }
     }
-  </div>
+  </div> -->
 
-  <!-- ═══════════════════════════════════════════════════
-       STEP 9 — Custom validator on a single control
-       forbiddenNameValidator(/admin/i) blocks one name pattern.
-       Try typing "admin" to trigger a custom error object.
-       ═══════════════════════════════════════════════════ -->
+ 
 
   <div class="form-field">
     <label for="email">Email</label>

@@ -13,20 +13,20 @@ export class TemplateDrivenFormComponent {
   
   // Step 1
 
-  // Step 2: uncomment to enable two-way binding
+  // Step 2: enable two-way binding
   // name = '';
 
-  // Step 3: uncomment as you add more fields
+  // Step 3: add more fields
   // email = '';
   // password = '';
 
-  // Step 4: uncomment for cross-field validation
+  // Step 4: cross-field validation
   // confirmPassword = '';
 
-  // Step 5: uncomment for the "no name attr" demo
+  // Step 5:  "no name attr" demo
   // unmapped = '';
 
-  // STEP 8: uncomment for the EMBG custom validator demo
+  // STEP 8: EMBG custom validator demo
 //   embg = '';
 
   onSubmit(form: NgForm) {
