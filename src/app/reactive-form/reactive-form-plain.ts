@@ -22,7 +22,6 @@ import { debounceTime } from 'rxjs';
 })
 export class ReactiveFormPlainComponent {
 
-  // Form model WITHOUT FormBuilder
   form = new FormGroup(
     {
       name: new FormControl<string | null>('', [
