@@ -22,5 +22,12 @@ export const routes: Routes = [
         (m) => m.ReactiveFormPlainComponent
       ),
   },
+  {
+    path: 'reactive-intro',
+    loadComponent: () =>
+      import('./reactive-form/reactive-form-intro').then(
+        (m) => m.ReactiveFormIntroComponent
+      ),
+  },
   { path: '', redirectTo: 'template-driven', pathMatch: 'full' },
 ];

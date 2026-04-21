@@ -1,0 +1,136 @@
+:host {
+  display: block;
+  max-width: 560px;
+  margin: 2rem auto;
+  font-family: sans-serif;
+}
+
+h1 {
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+/* Each step lives in its own card */
+.step {
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.step h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+  color: #1e293b;
+}
+
+.step .hint {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0 0 1rem;
+}
+
+/* Form fields */
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.form-field input,
+.skill-row input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+/* State panel shown under each step */
+.state-panel {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #f3f4f6;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.state-panel pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 0;
+}
+
+/* Nested groups */
+.nested-group {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.nested-group legend {
+  font-weight: 600;
+  padding: 0 0.5rem;
+}
+
+/* FormArray rows */
+.skill-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.skill-row input {
+  flex: 1;
+}
+
+/* Buttons */
+.btn-remove {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+}
+
+.btn-add {
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin-top: 0.25rem;
+}
+
+button[type='submit'] {
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button[type='submit']:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}

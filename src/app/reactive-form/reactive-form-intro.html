@@ -1,0 +1,130 @@
+<h1>Reactive Forms — Step by Step</h1>
+<p class="subtitle">Uncomment each section as you explain it.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STEP 1 — FormControl
+     What to say:
+       "A FormControl is a TypeScript object — not a directive.
+        It tracks the current value, whether it's been touched,
+        whether it's dirty, and whether it's valid.
+        In the template we bind to it with [formControl]."
+     What audience sees:
+       Type in the input → the value updates live below it.
+     ════════════════════════════════════════════════════════════════ -->
+
+<!-- STEP 1: Uncomment this block -->
+
+<!-- <section class="step">
+  <h2>Step 1 — FormControl</h2>
+  <p class="hint">One input, one FormControl.</p>
+
+  <div class="form-field">
+    <label for="s1-name">Name</label>
+    <input id="s1-name" [formControl]="nameControl" />
+  </div>
+
+  <div class="state-panel">
+    <p><strong>value:</strong> {{ nameControl.value }}</p>
+    <p><strong>touched:</strong> {{ nameControl.touched }}</p>
+    <p><strong>dirty:</strong> {{ nameControl.dirty }}</p>
+    <p><strong>valid:</strong> {{ nameControl.valid }}</p>
+  </div>
+</section> -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STEP 2 — FormGroup (no validators yet)
+     What to say:
+       "A FormGroup is a container. It groups related FormControls
+        so you can read the full value as one object, and check
+        validity across all of them at once."
+     What audience sees:
+       Both inputs update simpleGroup.value together.
+     ════════════════════════════════════════════════════════════════ -->
+
+<!-- STEP 2: Uncomment this block -->
+<!--
+<section class="step">
+  <h2>Step 2 — FormGroup (no validators yet)</h2>
+  <p class="hint">Two controls, one group. Watch the group value update.</p>
+
+  <form [formGroup]="simpleGroup">
+    <div class="form-field">
+      <label for="s2-username">Username</label>
+      <input id="s2-username" formControlName="username" />
+    </div>
+
+    <div class="form-field">
+      <label for="s2-email">Email</label>
+      <input id="s2-email" type="email" formControlName="email" />
+    </div>
+  </form>
+
+  <div class="state-panel">
+    <p><strong>simpleGroup.valid:</strong> {{ simpleGroup.valid }}</p>
+    <pre><strong>simpleGroup.value:</strong>{{ simpleGroup.value | json }}</pre>
+  </div>
+</section>
+-->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     STEP 3 — Built-in validators
+     What to say:
+       "Validators are just functions. Validators.required returns
+        an error object when the value is empty; null when it's fine.
+        We pass them as the second argument to FormControl.
+        The FormGroup becomes invalid as soon as any control inside
+        it is invalid."
+     What audience sees:
+       Leave fields empty or enter a bad email → error messages
+       appear; group.valid flips to false.
+     ════════════════════════════════════════════════════════════════ -->
+
+<!-- STEP 3: Uncomment this block -->
+<!--
+<section class="step">
+  <h2>Step 3 — Built-in validators</h2>
+  <p class="hint">
+    required, email, minLength — add them to the FormControl constructor.
+  </p>
+
+  <form [formGroup]="validatedForm">
+    <div class="form-field">
+      <label for="s3-username">Username</label>
+      <input id="s3-username" formControlName="username" />
+      @if (validatedForm.get('username')!.touched && validatedForm.get('username')!.hasError('required')) {
+        <span class="error" role="alert">Username is required.</span>
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="s3-email">Email</label>
+      <input id="s3-email" type="email" formControlName="email" />
+      @if (validatedForm.get('email')!.touched && validatedForm.get('email')!.invalid) {
+        @if (validatedForm.get('email')!.hasError('required')) {
+          <span class="error" role="alert">Email is required.</span>
+        } @else if (validatedForm.get('email')!.hasError('email')) {
+          <span class="error" role="alert">Enter a valid email.</span>
+        }
+      }
+    </div>
+
+    <div class="form-field">
+      <label for="s3-password">Password</label>
+      <input id="s3-password" type="password" formControlName="password" />
+      @if (validatedForm.get('password')!.touched && validatedForm.get('password')!.invalid) {
+        @if (validatedForm.get('password')!.hasError('required')) {
+          <span class="error" role="alert">Password is required.</span>
+        } @else if (validatedForm.get('password')!.hasError('minlength')) {
+          <span class="error" role="alert">Must be at least 6 characters.</span>
+        }
+      }
+    </div>
+  </form>
+
+  <div class="state-panel">
+    <p><strong>validatedForm.valid:</strong> {{ validatedForm.valid }}</p>
+    <pre><strong>validatedForm.value:</strong>{{ validatedForm.value | json }}</pre>
+  </div>
+</section>
+-->
